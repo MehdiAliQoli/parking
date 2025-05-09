@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 </head>
+
 <body>
     <!-- Header Section -->
     <header>
@@ -16,12 +18,12 @@
             <div class="logo">
                 <a href="#home"><img src="logo.png" alt="ParkPal Logo" style="width: 140px; height: auto;"></a>
             </div>
-            
+
             <!-- Mobile Menu Button (only visible on small screens) -->
             <button class="mobile-menu-btn" id="mobileMenuBtn">
                 <i class="fas fa-bars"></i>
             </button>
-            
+
             <!-- Navigation Menu -->
             <ul class="nav-menu" id="navMenu">
                 <li><a href="#home">Home</a></li>
@@ -62,7 +64,7 @@
                         <div class="form-group">
                             <label for="time">Time</label>
                             <input type="time" id="time" class="form-control">
-                        </div>   
+                        </div>
                         <div class="form-group">
                             <label>&nbsp;</label>
                             <button type="button" class="btn" id="searchBtn">Search</button>
@@ -75,8 +77,10 @@
             <section class="section" id="how-it-works">
                 <div class="container">
                     <div class="section-title">
-                        <div class="step2"><h2>How It Works</h2></div>
-                        
+                        <div class="step2">
+                            <h2>How It Works</h2>
+                        </div>
+
                     </div>
                     <div class="steps">
                         <div class="step">
@@ -98,10 +102,11 @@
                                 <i class="fas fa-credit-card"></i>
                             </div>
                             <h3>Pay Online</h3>
-                            <p>Complete your booking with a secure online payment. Multiple payment options available.</p>
+                            <p>Complete your booking with a secure online payment. Multiple payment options available.
+                            </p>
                         </div>
                     </div>
-                    <div id="developer"> 
+                    <div id="developer">
                         <p>Developed By Mehdi Ali Qoli</p>
                     </div>
                 </div>
@@ -113,13 +118,13 @@
     <div class="modal" id="authModal">
         <div class="modal-content">
             <button class="close-modal" id="closeModal">&times;</button>
-            
+
             <!-- Tabs for Login/Signup -->
             <div class="auth-tabs">
                 <button class="auth-tab active" id="loginTab">Login</button>
                 <button class="auth-tab" id="signupTab">Sign Up</button>
             </div>
-            
+
             <!-- Login Form -->
             <form class="auth-form active" id="loginForm">
                 <div class="form-group">
@@ -128,14 +133,15 @@
                 </div>
                 <div class="form-group">
                     <label for="loginPassword">Password</label>
-                    <input type="password" id="loginPassword" class="form-control" placeholder="Enter your password" required>
+                    <input type="password" id="loginPassword" class="form-control" placeholder="Enter your password"
+                        required>
                 </div>
                 <button type="submit" class="btn">Login</button>
                 <div class="form-footer">
                     <p>Don't have an account? <a href="#" id="switchToSignup">Sign up here</a></p>
                 </div>
             </form>
-            
+
             <!-- Signup Form -->
             <form class="auth-form" id="signupForm">
                 <div class="form-group">
@@ -148,7 +154,8 @@
                 </div>
                 <div class="form-group">
                     <label for="signupPassword">Password</label>
-                    <input type="password" id="signupPassword" class="form-control" placeholder="Create a password" required>
+                    <input type="password" id="signupPassword" class="form-control" placeholder="Create a password"
+                        required>
                 </div>
                 <button type="submit" class="btn">Sign Up</button>
                 <div class="form-footer">
@@ -158,7 +165,115 @@
         </div>
     </div>
 
+
+
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+    <section class="footers pt-5 pb-3" style="background-color: darkslategrey;">
+        <div class="container pt-5">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-4 footers-one">
+                    <div class="footers-logo">
+                        <img src="logo.png" alt="Logo"
+                            style="width:170px;">
+                    </div>
+                  <!--  <div class="footers-info mt-3">
+                        <p>Cras sociis natoque penatibus et magnis Lorem Ipsum tells about the compmany right now the
+                            best.</p>
+                    </div> 
+                    -->
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com/"><i id="social-fb"
+                                class="fa fa-facebook-square fa-2x social"></i></a>
+                        <a href="https://twitter.com/"><i id="social-tw"
+                                class="fa fa-twitter-square fa-2x social"></i></a>
+                        <a href="https://plus.google.com/"><i id="social-gp"
+                                class="fa fa-google-plus-square fa-2x social"></i></a>
+                        <a href="mailto:bootsnipp@gmail.com"><i id="social-em"
+                                class="fa fa-envelope-square fa-2x social"></i></a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-2 footers-two">
+                    <h5 style="color: white;">Essentials </h5>
+                    <ul class="list-unstyled">
+                        <li><a href="maintenance.html">Search</a></li>
+                        <li><a href="contact.html">Rent a Parking Area</a></li>
+                        <li><a href="about.html">Advertise with us</a></li>
+                        <li><a href="about.html">Dealers Portal</a></li>
+                        <li><a href="about.html">Post Requirements</a></li>
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-2 footers-three">
+                    <h5 style="color: white;">Information </h5>
+                    <ul class="list-unstyled">
+                        <li><a href="maintenance.html">Register Now</a></li>
+                        <li><a href="contact.html">Contack Us</a></li>
+                        <li><a href="about.html">Videos</a></li>
+                        <li><a href="about.html">Blog</a></li>
+                        <li><a href="about.html">Services</a></li>
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-2 footers-four">
+                    <h5 style="color: white;">Explore </h5>
+                    <ul class="list-unstyled">
+                        <li><a href="maintenance.html">Our Preferances</a></li>
+                        <li><a href="contact.html">Refrence</a></li>
+                        <li><a href="about.html">customer Reviews</a></li>
+                        <li><a href="about.html">Feedbacks</a></li>
+                        <li><a href="about.html">User Agreement</a></li>
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-2 footers-five">
+                    <h5 style="color: white;">Company </h5>
+                    <ul class="list-unstyled">
+                        <li><a href="maintenance.html">Career</a></li>
+                        <li><a href="about.html">For Parters</a></li>
+                        <li><a href="about.html">Terms</a></li>
+                        <li><a href="about.html">Policy</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+   
+
+    <!--    </section>
+    <section class="disclaimer  border" style="background-color: darkslategrey";>-->
+        <div class="container">
+            <div class="row ">
+                <div class="col-md-12 py-4 font-weight-bold text-center font-size-40">
+                    <small style="color: white;">
+                        Welcome to ParkPal, the smarter way to park! We’re revolutionizing parking by letting you reserve your spot before you even arrive, saving you time, stress, and the hassle of circling lots.
+                        Founded with a passion for convenience, our mission is to make parking seamless and reliable for drivers everywhere. Whether you’re heading to a concert, catching a flight, or just running errands, our easy-to-use platform ensures your parking spot is ready when you are.
+                        With a network of trusted parking facilities and cutting-edge technology, we’re committed to providing secure, affordable, and accessible parking solutions. Join thousands of drivers who’ve ditched the parking struggle and embraced the ease of ParkPal.
+                        Reserve your spot today and park with confidence!
+                    </small>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="copyright border">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-12 pt-3">
+                    <p class="text-muted">© 2025 ParkPal Pvt. Ltd.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
     <!-- Link to our JavaScript file -->
     <script src="script.js"></script>
 </body>
+
 </html>

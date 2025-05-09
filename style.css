@@ -432,3 +432,25 @@ header {
         padding: 20px 15px;
     }
 }
+
+
+
+.footers a {color:#dddddd;}
+.footers p {color:#a4aa9f;}
+.footers ul {line-height:30px;}
+#social-fb:hover {
+     color: #ff00c8;
+     transition:all .001s;
+ }
+ #social-tw:hover {
+     color: #f204ff;
+     transition:all .001s;
+ }
+ #social-gp:hover {
+     color: #d34836;
+     transition:all .001s;
+ }
+ #social-em:hover {
+     color: #f39c12;
+     transition:all .001s;
+ }
