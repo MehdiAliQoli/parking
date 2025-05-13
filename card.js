@@ -14,30 +14,30 @@ const vehicleNumber = document.getElementById("vehicle-number").value.trim();
     }
 
     // Show thank you message
-    alert("Thank you for selecting ParkPal!");
+    
 
     // Generate parking token content
    const tokenContent = `
-    ----------------------
+        --------------------
+        PARKPAL PARKING TOKEN
+        ----------------------
+        Cardholder Name: ${cardholder}
+        Vehicle Number: ${vehicleNumber}
+        Card Number: ${cardnumber.replace(/\d(?=\d{4})/g, "*")} 
+        Expiry Date: ${expiry}
+        Billing Address: ${billing}
+        Date: ${new Date().toLocaleDateString()}
+        Time: ${new Date().toLocaleTimeString()}
 
-                 PARKPAL PARKING TOKEN
-    ----------------------
-    Cardholder Name: ${cardholder}
-    Vehicle Number: ${vehicleNumber}
-    Card Number: ${cardnumber.replace(/\d(?=\d{4})/g, "*")} 
-    Expiry Date: ${expiry}
-    Billing Address: ${billing}
-    Date: ${new Date().toLocaleDateString()}
-    Time: ${new Date().toLocaleTimeString()}
-    ----------------------
-    Thank you for using ParkPal!
-    Show this token to the parking attendant.
-    ----------------------
-    Note: This is a digital token. Please keep it safe.
-    ----------------------
+        ----------------------
+        Thank you for using ParkPal!
+        Show this token to the parking attendant.
+        --------------------------------
+        Note: This is a digital token. Please keep it safe.
+        --------------------------------
 
 `;
-
+    alert("Thank you for selecting ParkPal! /n Your parking token has been generated.");
     // Create a downloadable file
     const blob = new Blob([tokenContent], { type: "text/plain" });
     const link = document.createElement("a");
