@@ -409,9 +409,10 @@ function displayParkingToken(location, date, startTime, endTime, hours, hourlyRa
         window.print();
     });
     
-    document.getElementById('payNow').addEventListener('click', function() {
-        alert('Redirecting to payment gateway...');
-    });
+    document.getElementById('payNow').addEventListener('click', function () {
+    // alert('Redirecting to payment gateway...');
+    window.location.href = 'card.html';
+  });
 }
 
 
