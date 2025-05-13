@@ -18,17 +18,24 @@ const vehicleNumber = document.getElementById("vehicle-number").value.trim();
 
     // Generate parking token content
    const tokenContent = `
-    PARKPAL PARKING TOKEN
+    ----------------------
+
+                 PARKPAL PARKING TOKEN
     ----------------------
     Cardholder Name: ${cardholder}
     Vehicle Number: ${vehicleNumber}
-    Card Number: ${cardnumber.replace(/\d(?=\d{4})/g, "*")}  /* Mask all but last 4 digits */
+    Card Number: ${cardnumber.replace(/\d(?=\d{4})/g, "*")} 
     Expiry Date: ${expiry}
     Billing Address: ${billing}
     Date: ${new Date().toLocaleDateString()}
     Time: ${new Date().toLocaleTimeString()}
     ----------------------
     Thank you for using ParkPal!
+    Show this token to the parking attendant.
+    ----------------------
+    Note: This is a digital token. Please keep it safe.
+    ----------------------
+
 `;
 
     // Create a downloadable file
