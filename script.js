@@ -129,19 +129,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Search button functionality
     if (searchBtn) {
-        searchBtn.addEventListener('click', function() {
-            const location = document.getElementById('location').value;
-            const date = document.getElementById('date').value;
-            const time = document.getElementById('time').value;
-            
-            if (!location || !date || !time) {
-                alert("Please fill in all fields");
-                return;
-            }
-            
-            // Here you would normally search for parking spots
-            alert(`Searching for parking near ${location} on ${date} at ${time}`);
-        });
+        searchBtn.addEventListener('click', handleSearch);
     }
 
     // Book now button functionality
@@ -209,41 +197,85 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-});
 
-
-
-
-
-
-
-
-
-// Location-based pricing (per hour in PKR)
-const locationPrices = {
-    "iba main campus": 100,
-    "iba city campus": 120,
-    "sea view": 150,
-    "bahadurabad": 80,
-    "luckyone mall": 200,
-    "meezan hostel": 60
-};
-
-// Event listeners setup
-document.addEventListener('DOMContentLoaded', function() {
-    const searchBtn = document.getElementById('searchBtn');
+    // Setup location autocomplete on the location input
     const locationInput = document.getElementById('location');
-    
-    // Setup autocomplete suggestions
     if (locationInput) {
         setupLocationAutocomplete(locationInput);
     }
-    
-    // Setup search button
-    if (searchBtn) {
-        searchBtn.addEventListener('click', handleSearch);
-    }
 });
+
+// Updated parking data with multiple categories per location
+const parkingData = {
+    "iba main campus": {
+        types: [
+            { 
+                name: "Staff Parking", 
+                baseRate: 100,
+                color: "#3498db"
+            },
+            { 
+                name: "Student Parking", 
+                baseRate: 70,
+                color: "#2ecc71"
+            },
+            { 
+                name: "Disabled Parking", 
+                baseRate: 50,
+                color: "#9b59b6"
+            }
+        ],
+        mapUrl: "https://maps.google.com/maps?q=IBA+Main+Campus+Karachi&t=&z=13&ie=UTF8&iwloc=&output=embed",
+        occupancyStatus: "normal" // can be "low", "normal", "high"
+    },
+    "iba city campus": {
+        types: [
+            { 
+                name: "Staff Parking", 
+                baseRate: 120,
+                color: "#3498db" 
+            },
+            { 
+                name: "Student Parking", 
+                baseRate: 80,
+                color: "#2ecc71"
+            },
+            { 
+                name: "Disabled Parking", 
+                baseRate: 60,
+                color: "#9b59b6"
+            }
+        ],
+        mapUrl: "https://maps.google.com/maps?q=IBA+City+Campus+Karachi&t=&z=13&ie=UTF8&iwloc=&output=embed",
+        occupancyStatus: "high" // can be "low", "normal", "high"
+    },
+    "luckyone mall": {
+        types: [
+            { 
+                name: "Normal Parking", 
+                baseRate: 150,
+                color: "#3498db"
+            },
+            { 
+                name: "Premium Parking", 
+                baseRate: 250,
+                color: "#f1c40f"
+            },
+            { 
+                name: "Disabled Parking", 
+                baseRate: 100,
+                color: "#9b59b6"
+            },
+            { 
+                name: "Outside Parking", 
+                baseRate: 120,
+                color: "#e74c3c"
+            }
+        ],
+        mapUrl: "https://maps.google.com/maps?q=Lucky+One+Mall+Karachi&t=&z=13&ie=UTF8&iwloc=&output=embed",
+        occupancyStatus: "high" // can be "low", "normal", "high"
+    }
+};
 
 // Setup location autocomplete functionality
 function setupLocationAutocomplete(inputElement) {
@@ -281,7 +313,7 @@ function setupLocationAutocomplete(inputElement) {
         suggestionsList.innerHTML = '';
         
         // Filter locations based on input
-        const filteredLocations = Object.keys(locationPrices).filter(location => 
+        const filteredLocations = Object.keys(parkingData).filter(location => 
             query === '' || location.includes(query)
         );
         
@@ -327,8 +359,9 @@ function handleSearch() {
     }
     
     // Check if location is in our supported locations
-    if (!Object.keys(locationPrices).some(key => location.toLowerCase().includes(key))) {
-        alert('Sorry, we do not have parking available at this location.');
+    const locationKey = Object.keys(parkingData).find(key => location.toLowerCase().includes(key));
+    if (!locationKey) {
+        alert('Sorry, we do not have parking available at this location. We currently only support IBA Main Campus, IBA City Campus, and Lucky One Mall.');
         return;
     }
     
@@ -339,13 +372,41 @@ function handleSearch() {
         return;
     }
     
-    // Find the matching location for pricing
-    const matchedLocation = Object.keys(locationPrices).find(key => location.toLowerCase().includes(key));
-    const hourlyRate = locationPrices[matchedLocation];
-    const totalFee = hourlyRate * hours;
+    // Get the location data
+    const locationInfo = parkingData[locationKey];
     
-    // Generate and display the token
-    displayParkingToken(matchedLocation, date, startTime, endTime, hours, hourlyRate, totalFee);
+    // Remove any existing tokens, map and FAQs
+    clearPreviousResults();
+    
+    // Display the map for this location
+    displayGoogleMap(locationInfo.mapUrl);
+    
+    // Display the occupancy status
+    displayOccupancyStatus(locationKey, locationInfo.occupancyStatus);
+    
+    // Generate tokens for each parking type at this location
+    locationInfo.types.forEach((parkingType, index) => {
+        // Apply occupancy pricing adjustment
+        const adjustedRate = getAdjustedRate(parkingType.baseRate, locationInfo.occupancyStatus);
+        const totalFee = adjustedRate * hours;
+        
+        // Generate a token for this parking type
+        displayParkingToken(
+            locationKey, 
+            parkingType.name, 
+            date, 
+            startTime, 
+            endTime, 
+            hours, 
+            adjustedRate, 
+            totalFee,
+            parkingType.color,
+            index
+        );
+    });
+    
+    // Display FAQs after all tokens
+    displayFAQs(locationKey);
 }
 
 // Calculate hours between two time strings (HH:MM format)
@@ -358,62 +419,287 @@ function calculateHoursDifference(startTime, endTime) {
     return Math.max(0, diff / (1000 * 60 * 60));
 }
 
-// Display the parking token with all details
-function displayParkingToken(location, date, startTime, endTime, hours, hourlyRate, totalFee) {
-    // Create token container if it doesn't exist or remove existing one
-    let tokenContainer = document.getElementById('parkingTokenContainer');
-    if (tokenContainer) {
-        tokenContainer.remove();
+// Adjust rate based on occupancy status
+function getAdjustedRate(baseRate, occupancyStatus) {
+    switch(occupancyStatus) {
+        case "low": 
+            return baseRate * 0.9; // 10% discount
+        case "high": 
+            return baseRate * 1.2; // 20% surcharge
+        default: 
+            return baseRate; // normal rate
+    }
+}
+
+// Clear any previously displayed tokens, map and FAQs
+function clearPreviousResults() {
+    // Remove all token containers
+    const tokenContainers = document.querySelectorAll('.parking-token-container');
+    tokenContainers.forEach(container => container.remove());
+    
+    // Remove any map containers
+    const mapContainer = document.getElementById('googleMapContainer');
+    if (mapContainer) {
+        mapContainer.remove();
     }
     
-    // Create new token
-    tokenContainer = document.createElement('div');
-    tokenContainer.id = 'parkingTokenContainer';
-    tokenContainer.className = 'container';
+    // Remove occupancy status
+    const statusContainer = document.getElementById('occupancyStatusContainer');
+    if (statusContainer) {
+        statusContainer.remove();
+    }
     
-    // Format the token HTML
+    // Remove FAQs
+    const faqContainer = document.getElementById('parkingFaqsContainer');
+    if (faqContainer) {
+        faqContainer.remove();
+    }
+}
+
+// Display Google Map for the searched location
+function displayGoogleMap(mapUrl) {
+    const mapContainer = document.createElement('div');
+    mapContainer.id = 'googleMapContainer';
+    mapContainer.className = 'container';
+    
+    mapContainer.innerHTML = `
+        <div class="map-wrapper">
+            <h2>Location Map</h2>
+            <div class="google-map">
+                <iframe src="${mapUrl}" width="100%" height="400" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+            </div>
+        </div>
+    `;
+    
+    // Insert after search box
+    const searchBox = document.querySelector('.search-box');
+    searchBox.parentNode.insertBefore(mapContainer, searchBox.nextSibling);
+}
+
+// Display occupancy status with explanation
+function displayOccupancyStatus(location, status) {
+    const statusContainer = document.createElement('div');
+    statusContainer.id = 'occupancyStatusContainer';
+    statusContainer.className = 'container';
+    
+    // Format location name for display
+    const displayLocation = location.split(' ')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+    
+    // Define status text and colors
+    let statusText, statusColor, explanation;
+    
+    switch(status) {
+        case "low":
+            statusText = "Low Occupancy";
+            statusColor = "#2ecc71"; // Green
+            explanation = "The parking area is less busy than usual. Enjoy a 10% discount on our regular rates!";
+            break;
+        case "high":
+            statusText = "High Occupancy";
+            statusColor = "#e74c3c"; // Red
+            explanation = "The parking area is busier than usual. A 20% surcharge applies to our regular rates.";
+            break;
+        default:
+            statusText = "Normal Occupancy";
+            statusColor = "#f39c12"; // Orange
+            explanation = "The parking area has typical occupancy levels. Standard rates apply.";
+    }
+    
+    statusContainer.innerHTML = `
+        <div class="occupancy-status">
+            <h2>Current Parking Status at ${displayLocation}</h2>
+            <div class="status-indicator" style="background-color: ${statusColor};">
+                <span>${statusText}</span>
+            </div>
+            <p>${explanation}</p>
+        </div>
+    `;
+    
+    // Insert after search box but before map
+    const mapContainer = document.getElementById('googleMapContainer');
+    mapContainer.parentNode.insertBefore(statusContainer, mapContainer);
+}
+
+// Display a single parking token
+function displayParkingToken(location, parkingType, date, startTime, endTime, hours, hourlyRate, totalFee, headerColor, index) {
+    // Create token container
+    const tokenContainer = document.createElement('div');
+    tokenContainer.className = 'parking-token-container container';
+    
+    // Format the location name for display
+    const displayLocation = location.split(' ')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+    
+    // Generate a unique ID for this token
+    const tokenId = `PP-${Math.floor(Math.random() * 100000).toString().padStart(5, '0')}`;
+    
+    // Format the token HTML with the specified color
     tokenContainer.innerHTML = `
         <div class="parking-token">
-            <div class="token-header">
-                <h2>ParkPal Parking Token</h2>
-                <p class="token-id">ID: PP-${Math.floor(Math.random() * 100000).toString().padStart(5, '0')}</p>
+            <div class="token-header" style="background-color: ${headerColor};">
+                <h2>${parkingType}</h2>
+                <p class="token-id">ID: ${tokenId}</p>
             </div>
             <div class="token-content">
                 <div class="token-info">
-                    <p><strong>Location:</strong> ${location.split(' ')
-                        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-                        .join(' ')}</p>
+                    <p><strong>Location:</strong> ${displayLocation}</p>
                     <p><strong>Date:</strong> ${date}</p>
                     <p><strong>Time:</strong> ${startTime} to ${endTime}</p>
                     <p><strong>Duration:</strong> ${hours.toFixed(1)} hours</p>
                 </div>
                 <div class="token-pricing">
-                    <p><strong>Rate:</strong> PKR ${hourlyRate}/hour</p>
+                    <p><strong>Rate:</strong> PKR ${hourlyRate.toFixed(0)}/hour</p>
                     <p class="token-total"><strong>Total Fee:</strong> PKR ${totalFee.toFixed(0)}</p>
                 </div>
             </div>
             <div class="token-footer">
                 <p>Thank you for choosing ParkPal!</p>
-                <button class="btn" id="printToken">Print Token</button>
-                <button class="btn btn-secondary" id="payNow">Pay Now</button>
+                <button class="btn" onclick="window.print()">Print Token</button>
+                <button class="btn btn-secondary" onclick="window.location.href='card.html'">Pay Now</button>
             </div>
         </div>
     `;
     
-    // Insert token after search box
-    const searchBox = document.querySelector('.search-box');
-    searchBox.parentNode.insertBefore(tokenContainer, searchBox.nextSibling);
+    // Determine where to insert the token
+    let referenceNode;
+    if (index === 0) {
+        // First token goes after the occupancy status
+        referenceNode = document.getElementById('occupancyStatusContainer');
+    } else {
+        // Subsequent tokens go after the previous token
+        const tokens = document.querySelectorAll('.parking-token-container');
+        referenceNode = tokens[tokens.length - 1];
+    }
     
-    // Add event listeners for token buttons
-    document.getElementById('printToken').addEventListener('click', function() {
-        window.print();
-    });
-    
-    document.getElementById('payNow').addEventListener('click', function () {
-    // alert('Redirecting to payment gateway...');
-    window.location.href = 'card.html';
-  });
+    // Insert token after the reference node
+    referenceNode.parentNode.insertBefore(tokenContainer, referenceNode.nextSibling);
 }
 
-
-
+// Display Frequently Asked Questions
+function displayFAQs(location) {
+    const faqContainer = document.createElement('div');
+    faqContainer.id = 'parkingFaqsContainer';
+    faqContainer.className = 'container';
+    
+    // Format the location name for display
+    const displayLocation = location.split(' ')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+    
+    // Create location-specific FAQs
+    let faqs;
+    switch(location) {
+        case "iba main campus":
+            faqs = [
+                {
+                    question: "What are the operating hours for parking at IBA Main Campus?",
+                    answer: "Parking at IBA Main Campus is available from 7:00 AM to 10:00 PM, seven days a week."
+                },
+                {
+                    question: "Is there a designated area for visitor parking?",
+                    answer: "Yes, visitors can use the Student Parking area. Please display your printed token on your dashboard."
+                },
+                {
+                    question: "Do I need an IBA ID to park in the Staff Parking area?",
+                    answer: "Yes, you must have a valid IBA staff ID to park in the Staff Parking area. Random checks are conducted."
+                },
+                {
+                    question: "How do I qualify for Disabled Parking?",
+                    answer: "You need to display a valid disabled parking permit on your vehicle dashboard along with your ParkPal token."
+                }
+            ];
+            break;
+        case "iba city campus":
+            faqs = [
+                {
+                    question: "Is overnight parking allowed at IBA City Campus?",
+                    answer: "No, overnight parking is not permitted. All vehicles must exit by 10:00 PM."
+                },
+                {
+                    question: "Can faculty members park in the Student Parking area?",
+                    answer: "Faculty members should use the Staff Parking area. The Student Parking area is reserved for students only."
+                },
+                {
+                    question: "Is there CCTV surveillance in the parking areas?",
+                    answer: "Yes, all parking areas are monitored by CCTV cameras 24/7 for security purposes."
+                },
+                {
+                    question: "What happens if I exceed my booked parking time?",
+                    answer: "Additional charges will apply at a rate of PKR 150 per hour for any time exceeding your booking."
+                }
+            ];
+            break;
+        case "luckyone mall":
+            faqs = [
+                {
+                    question: "What's the difference between Normal and Premium Parking?",
+                    answer: "Premium Parking offers spots closer to mall entrances, wider spaces, and dedicated security personnel."
+                },
+                {
+                    question: "Is Outside Parking covered or open-air?",
+                    answer: "Outside Parking is open-air and located in the peripheral areas of the mall complex."
+                },
+                {
+                    question: "Do mall shoppers get free parking?",
+                    answer: "Shoppers with purchases over PKR 5,000 can get parking validated for up to 3 hours free at the customer service desk."
+                },
+                {
+                    question: "Is valet parking available?",
+                    answer: "Yes, valet parking is available for an additional PKR 300 fee and can be requested at the main entrance."
+                }
+            ];
+            break;
+        default:
+            faqs = [
+                {
+                    question: "How do I cancel my parking reservation?",
+                    answer: "You can cancel your reservation up to 2 hours before your scheduled time for a full refund."
+                },
+                {
+                    question: "What payment methods are accepted?",
+                    answer: "We accept all major credit/debit cards, EasyPaisa, JazzCash, and ParkPal wallet funds."
+                },
+                {
+                    question: "Is my parking spot guaranteed?",
+                    answer: "Yes, once you complete your booking, your spot is guaranteed for the reserved time period."
+                },
+                {
+                    question: "What if I can't find parking despite having a reservation?",
+                    answer: "Please contact our helpline at 0800-PARKPAL and a representative will assist you immediately."
+                }
+            ];
+    }
+    
+    // Create the FAQ HTML
+    let faqHTML = `
+        <div class="faqs-section">
+            <h2>Frequently Asked Questions - ${displayLocation}</h2>
+            <div class="faq-list">
+    `;
+    
+    // Add each FAQ item
+    faqs.forEach(faq => {
+        faqHTML += `
+            <div class="faq-item">
+                <h3>${faq.question}</h3>
+                <p>${faq.answer}</p>
+            </div>
+        `;
+    });
+    
+    // Close the HTML structure
+    faqHTML += `
+            </div>
+        </div>
+    `;
+    
+    faqContainer.innerHTML = faqHTML;
+    
+    // Insert after the last token
+    const tokens = document.querySelectorAll('.parking-token-container');
+    const lastToken = tokens[tokens.length - 1];
+    lastToken.parentNode.insertBefore(faqContainer, lastToken.nextSibling);
+}

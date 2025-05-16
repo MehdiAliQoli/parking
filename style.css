@@ -697,3 +697,92 @@ header {
         margin-bottom: 15px;
     }
 }
+
+
+/* FAQ Section Styling */
+.faqs-section {
+    margin: 40px 0;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.faqs-section h2 {
+    color: #2c3e50;
+    font-size: 24px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #eaeaea;
+    text-align: center;
+}
+
+.faq-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+@media (min-width: 768px) {
+    .faq-list {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.faq-item {
+    padding: 15px;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+    transition: all 0.3s ease;
+    border-left: 4px solid #3498db;
+}
+
+.faq-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.faq-item h3 {
+    color: #3498db;
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.faq-item p {
+    color: #555;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Add some variety to the FAQ items based on location */
+.faq-item:nth-child(1) {
+    border-left-color: #3498db; /* Blue */
+}
+
+.faq-item:nth-child(2) {
+    border-left-color: #2ecc71; /* Green */
+}
+
+.faq-item:nth-child(3) {
+    border-left-color: #f1c40f; /* Yellow */
+}
+
+.faq-item:nth-child(4) {
+    border-left-color: #9b59b6; /* Purple */
+}
+
+/* Add responsive styling for smaller devices */
+@media (max-width: 767px) {
+    .faqs-section {
+        padding: 15px;
+    }
+    
+    .faqs-section h2 {
+        font-size: 20px;
+    }
+    
+    .faq-item h3 {
+        font-size: 16px;
+    }
+}
