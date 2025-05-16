@@ -786,3 +786,473 @@ header {
         font-size: 16px;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+/* Enhanced Professional Parking Token Styling */
+
+/* Token container */
+.parking-token-container {
+    margin: 30px 0;
+    position: relative;
+}
+
+/* Token card styling */
+.parking-token {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.parking-token:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+/* Token header */
+.token-header {
+    padding: 20px 25px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.token-header::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 100%);
+    z-index: 1;
+}
+
+.token-header h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+    position: relative;
+    z-index: 2;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.token-id {
+    font-family: 'Courier New', monospace;
+    background-color: rgba(0, 0, 0, 0.15);
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+    position: relative;
+    z-index: 2;
+    letter-spacing: 1px;
+}
+
+/* Token content styling */
+.token-content {
+    padding: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    position: relative;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.token-info, .token-pricing {
+    flex: 1;
+    min-width: 250px;
+}
+
+.token-info p, .token-pricing p {
+    margin: 12px 0;
+    color: #555;
+    font-size: 16px;
+    line-height: 1.5;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.token-info p strong, .token-pricing p strong {
+    color: #2c3e50;
+    margin-right: 8px;
+    font-weight: 600;
+    min-width: 80px;
+    display: inline-block;
+}
+
+/* Add icons to token info */
+.token-info p:nth-child(1)::before {
+    content: '';
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%233498db' viewBox='0 0 24 24'%3E%3Cpath d='M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.token-info p:nth-child(2)::before {
+    content: '';
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%233498db' viewBox='0 0 24 24'%3E%3Cpath d='M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.token-info p:nth-child(3)::before {
+    content: '';
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%233498db' viewBox='0 0 24 24'%3E%3Cpath d='M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.token-info p:nth-child(4)::before {
+    content: '';
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%233498db' viewBox='0 0 24 24'%3E%3Cpath d='M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+/* Add icons to pricing info */
+.token-pricing p:nth-child(1)::before {
+    content: '';
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%233498db' viewBox='0 0 24 24'%3E%3Cpath d='M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.token-pricing p.token-total::before {
+    content: '';
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%233498db' viewBox='0 0 24 24'%3E%3Cpath d='M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+/* Highlight total amount */
+.token-total {
+    font-size: 18px !important;
+    margin-top: 20px !important;
+    padding-top: 10px;
+    border-top: 1px dashed #eaeaea;
+}
+
+.token-total strong {
+    color: #2c3e50;
+}
+
+/* Token footer */
+.token-footer {
+    padding: 20px 25px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f9f9f9;
+}
+
+.token-footer p {
+    margin: 0;
+    color: #7f8c8d;
+    font-size: 14px;
+    font-style: italic;
+}
+
+/* Button styles */
+.token-footer .btn {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+    margin: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.token-footer .btn:hover {
+    background-color: #2980b9;
+}
+
+.token-footer .btn-secondary {
+    background-color: #2ecc71;
+}
+
+.token-footer .btn-secondary:hover {
+    background-color: #27ae60;
+}
+
+/* QR code element */
+.token-qr {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 80px;
+    height: 80px;
+    background-color: #fff;
+    padding: 5px;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Watermark element */
+.token-watermark {
+    position: absolute;
+    bottom: 20px;
+    right: 30px;
+    opacity: 0.07;
+    transform: rotate(-35deg);
+    font-size: 120px;
+    font-weight: 800;
+    color: #000;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* For print styles */
+@media print {
+    .token-header, .token-content, .token-footer {
+        break-inside: avoid;
+    }
+    
+    .token-footer .btn {
+        display: none;
+    }
+}
+
+/* Responsive styling */
+@media (max-width: 767px) {
+    .token-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .token-id {
+        margin-top: 5px;
+    }
+    
+    .token-content {
+        padding: 15px;
+    }
+    
+    .token-footer {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .token-footer p {
+        margin-bottom: 10px;
+        text-align: center;
+    }
+    
+    .token-footer .btn {
+        width: 100%;
+        margin: 5px 0;
+    }
+}
+
+
+
+* Location and Occupancy Status Styling */
+
+/* Container for occupancy status */
+#occupancyStatusContainer {
+    margin: 30px 0;
+}
+
+.occupancy-status {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Header styling with location name */
+.occupancy-status h2 {
+    color: #2c3e50;
+    font-size: 22px;
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #eaeaea;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* Add location icon */
+.occupancy-status h2::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%233498db' viewBox='0 0 24 24'%3E%3Cpath d='M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+/* Status indicator styling */
+.status-indicator {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    border-radius: 30px;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+/* Status indicator icon */
+.status-indicator::before {
+    content: '';
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 8px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.8);
+    animation: pulse 2s infinite;
+}
+
+/* Pulsing animation for the status dot */
+@keyframes pulse {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+    }
+    
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 8px rgba(255, 255, 255, 0);
+    }
+    
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+    }
+}
+
+/* Status explanation text */
+.occupancy-status p {
+    color: #555;
+    line-height: 1.6;
+    margin-top: 15px;
+    font-size: 16px;
+    position: relative;
+    padding-left: 24px;
+}
+
+/* Info icon before explanation */
+.occupancy-status p::before {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: 3px;
+    width: 18px;
+    height: 18px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23555' viewBox='0 0 24 24'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+/* Specific styling for different occupancy statuses */
+.status-indicator.low-occupancy {
+    background-color: #2ecc71;
+}
+
+.status-indicator.normal-occupancy {
+    background-color: #f39c12;
+}
+
+.status-indicator.high-occupancy {
+    background-color: #e74c3c;
+}
+
+/* Decorative elements */
+.occupancy-status::after {
+    content: '';
+    position: absolute;
+    top: -30px;
+    right: -30px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-color: rgba(52, 152, 219, 0.05);
+    z-index: 0;
+}
+
+/* Responsive styling */
+@media (max-width: 767px) {
+    .occupancy-status h2 {
+        font-size: 18px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .occupancy-status h2::before {
+        margin-bottom: 5px;
+    }
+    
+    .status-indicator {
+        padding: 6px 12px;
+        font-size: 14px;
+    }
+    
+    .occupancy-status p {
+        font-size: 14px;
+    }
+}
