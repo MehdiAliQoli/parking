@@ -232,7 +232,7 @@ const parkingData = {
         types: [
             { 
                 name: "Staff Parking", 
-                baseRate: 120,
+                baseRate: 100,
                 color: "#3498db" 
             },
             { 
@@ -258,7 +258,7 @@ const parkingData = {
             },
             { 
                 name: "Premium Parking", 
-                baseRate: 250,
+                baseRate: 200,
                 color: "#f1c40f"
             },
             { 
@@ -268,7 +268,7 @@ const parkingData = {
             },
             { 
                 name: "Outside Parking", 
-                baseRate: 120,
+                baseRate: 60,
                 color: "#e74c3c"
             }
         ],
